@@ -6,5 +6,6 @@ import (
 )
 
 func init() {
-	beego.Router("/", &controllers.MainController{})
+	beego.Router("/", &controllers.TaskController{}, "Get:ShowIndex")
+	beego.Router("/tasks", &controllers.TaskController{}, "Get:GetTasks")
 }

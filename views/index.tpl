@@ -43,6 +43,22 @@
                   </div>
               </div>
 
+               <br>
+               <h2>Completed</h2>
+               <div v-for="task in tasks" style="margin-bottom: 5px">
+                  <div v-if="task.done===true" class="input-group">
+                    <span class="input-group-btn">
+                      <button class="btn btn-info" type="button" :disable="task.done===true" v-on:click="updayeTask(task,true)"><i class="fa fa-check" aria-hidden="true"></i></button>
+                    </span>
+
+                    <input type="text" class="form-control" :disable="task.done===true" v-model="task.name" v-on:keyup.enter="updayeTask(task)">
+
+                    <span class="input-group-btn">
+                      <button class="btn btn-info" type="button" :disable="task.done===true" v-on:click="updayeTask(task)"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                    </span>
+                  </div>  
+               </div>
+
           </div>
         </div>
     </div>
