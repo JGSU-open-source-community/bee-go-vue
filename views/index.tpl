@@ -16,7 +16,7 @@
 
     <div class="container">
         <div class="row">
-          <div class="col-md-4">
+          <div class="col-md-6">
             <h1>My Tasks</h1>
 
             <div class="input-group">
@@ -27,7 +27,7 @@
             </div>
 
             <br>
-            <h2>On Going</h2>
+            <h2 style="color: red">On Going</h2>
               <div v-if="task in tasks" style="margin-bottom: 10px">
                   <div v-if="task.done===false" class="input-group">
                       <span class="input-group-btn">
@@ -44,7 +44,7 @@
               </div>
 
                <br>
-               <h2>Completed</h2>
+               <h2 style="color: green">Completed</h2>
                <div v-for="task in tasks" style="margin-bottom: 5px">
                   <div v-if="task.done===true" class="input-group">
                     <span class="input-group-btn">
@@ -62,6 +62,6 @@
           </div>
         </div>
     </div>
-
+<script type="text/javascript" src="static/js/app.js"></script>
 </body>
 </html>

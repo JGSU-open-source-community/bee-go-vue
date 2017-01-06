@@ -2,9 +2,12 @@ package controllers
 
 import (
 	"bee-go-vue/models"
+	"fmt"
 
 	"github.com/astaxie/beego"
 )
+
+type H map[string]interface{}
 
 type TaskController struct {
 	beego.Controller
@@ -21,5 +24,8 @@ func (t *TaskController) GetTasks() {
 }
 
 func (t *TaskController) PostTask() {
+	name := t.GetString("name")
 
+	fmt.Println("================test=================")
+	fmt.Println(name)
 }

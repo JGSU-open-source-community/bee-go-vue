@@ -1,5 +1,5 @@
 (function(Vue){
-	"use strict"
+	"use strict";
 
 	new Vue({
 		// A Dom element to mount our view model.
@@ -11,6 +11,12 @@
 			tasks: [],
 			newTask: {}
 		},
+
+		created: function() {
+            this.$http.get('/tasks').then(function(res) {
+                this.tasks = res.data.items ? res.data.items : [];
+            });
+        },
         
         // Functions we will be using
 		methods: {
@@ -19,6 +25,7 @@
 			    	this.newTask = {};
 			    	return
 			    };
+
 
 			    this.newTask.done = false;
                 
@@ -33,7 +40,29 @@
 				});		    
 			},
 
-			
+			delteTask : function(index)	{
+				this.$http.delete('/task/'+index).success(function() {
+					this.$http.get('/task').then(function(res) {
+						this.tasks = res.data.items ? res.data.items : [];
+					});
+				}).error(function(err) {
+					console.log(err)
+				});
+			},	
+
+			updateTask: function(task, completed) {
+				if (completed) {
+					task.done = true;
+				}
+
+				this.$http.put('/task', task).success(function(res) {
+					this.$http.get('/tasks').then(function(res) {
+						this.tasks = res.data.items ? res.data.items : [];
+					});
+				}).error(function(err) {
+					console.log(err)
+				});
+			}
 		}
 	});
-});
+})(Vue);
