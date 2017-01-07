@@ -20,7 +20,7 @@
             <h1>My Tasks</h1>
 
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="New Task" v-on:keyup.enter="createTask" v-modle="newTask.name" autofocus>
+              <input type="text" class="form-control" placeholder="New Task" v-on:keyup.enter="createTask" v-model="newTask.name" autofocus>
               <span class="input-group-btn">
                   <button class="btn btn-primary" type="button" v-on:click="createTask">Create</button>
               </span>
@@ -28,7 +28,7 @@
 
             <br>
             <h2 style="color: red">On Going</h2>
-              <div v-if="task in tasks" style="margin-bottom: 10px">
+              <div v-for="task in tasks" style="margin-bottom: 10px">
                   <div v-if="task.done===false" class="input-group">
                       <span class="input-group-btn">
                         <button class="btn btn-info" type="button" :disable="task.done===true" v-on:click="updateTask(task,true)"><i class="fa fa-check" aria-hidden="true"></i></button>

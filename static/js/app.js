@@ -14,7 +14,7 @@
 
 		created: function() {
             this.$http.get('/tasks').then(function(res) {
-                this.tasks = res.data.items ? res.data.items : [];
+                this.tasks = res.data.iterms ? res.data.iterms : [];
             });
         },
         
@@ -23,12 +23,11 @@
 			createTask: function() {
 			    if (!$.trim(this.newTask.name)) {
 			    	this.newTask = {};
-			    	return
+			    	return;
 			    };
 
-
 			    this.newTask.done = false;
-                
+
                 // The http client for vue.js
 				this.$http.post('/task',this.newTask).success(function(res) {
 					this.newTask.id = res.created;
@@ -36,11 +35,11 @@
 
 					this.newTask = {};
 				}).error(function(err) {
-					console.log(err)
+					console.log(err);
 				});		    
 			},
 
-			delteTask : function(index)	{
+			deleteTask : function(index)	{
 				this.$http.delete('/task/'+index).success(function() {
 					this.$http.get('/task').then(function(res) {
 						this.tasks = res.data.items ? res.data.items : [];

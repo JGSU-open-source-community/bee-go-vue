@@ -1,8 +1,9 @@
 package controllers
 
 import (
+	"encoding/json"
+
 	"bee-go-vue/models"
-	"fmt"
 
 	"github.com/astaxie/beego"
 )
@@ -24,8 +25,31 @@ func (t *TaskController) GetTasks() {
 }
 
 func (t *TaskController) PostTask() {
-	name := t.GetString("name")
 
-	fmt.Println("================test=================")
-	fmt.Println(name)
+	task := t.bind()
+	models.PostTask(task.Name)
+	t.Redirect("/", 302)
+	return
+}
+
+func (t *TaskController) PutTask() {
+	task := t.bind()
+
+	models.PutTask(task)
+	t.Redirect("/", 302)
+	return
+
+}
+
+func (t *TaskController) DeleteTask() {
+	id := t.Ctx.Input.Param(":id")
+	models.DeleteTask(id)
+
+	t.Redirect("/", 302)
+	return
+}
+
+func (t *TaskController) bind() (ta models.Task) {
+	json.NewDecoder(t.Ctx.Request.Body).Decode(&ta)
+	return
 }

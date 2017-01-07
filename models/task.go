@@ -8,7 +8,7 @@ import (
 
 type Task struct {
 	Id   int    `orm:"pk" json:"id"`
-	Name string `orm:size(255) json:"name"`
+	Name string `orm:"size(255)" json:"name"`
 	Done bool   `json:"done"`
 }
 
