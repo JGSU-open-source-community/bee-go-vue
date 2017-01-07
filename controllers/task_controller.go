@@ -14,6 +14,13 @@ type TaskController struct {
 	beego.Controller
 }
 
+func (t *TaskController) URLMapping() {
+	t.Mapping("Get", t.GetTasks)
+	t.Mapping("Post", t.PostTask)
+	t.Mapping("Put", t.PutTask)
+	t.Mapping("Delete", t.Delete)
+}
+
 func (t *TaskController) ShowIndex() {
 	t.TplName = "index.tpl"
 }
@@ -27,26 +34,34 @@ func (t *TaskController) GetTasks() {
 func (t *TaskController) PostTask() {
 
 	task := t.bind()
-	models.PostTask(task.Name)
-	t.Redirect("/", 302)
-	return
+	id := models.PostTask(task.Name)
+
+	t.Data["json"] = H{
+		"created": id,
+	}
+	t.ServeJSON()
 }
 
 func (t *TaskController) PutTask() {
 	task := t.bind()
 
-	models.PutTask(task)
-	t.Redirect("/", 302)
-	return
+	id := models.PutTask(task)
 
+	t.Data["json"] = H{
+		"updated": id,
+	}
+
+	t.ServeJSON()
 }
 
 func (t *TaskController) DeleteTask() {
 	id := t.Ctx.Input.Param(":id")
 	models.DeleteTask(id)
 
-	t.Redirect("/", 302)
-	return
+	t.Data["json"] = H{
+		"deleted": id,
+	}
+	t.ServeJSON()
 }
 
 func (t *TaskController) bind() (ta models.Task) {

@@ -55,6 +55,7 @@
 
                     <span class="input-group-btn">
                       <button class="btn btn-info" type="button" :disable="task.done===true" v-on:click="updayeTask(task)"><i class="fa fa-edit" aria-hidden="true"></i></button>
+                      <button class="btn btn-danger" type="button" v-on:click="deleteTask(task.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                     </span>
                   </div>  
                </div>

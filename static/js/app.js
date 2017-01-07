@@ -39,10 +39,12 @@
 				});		    
 			},
 
+
+
 			deleteTask : function(index)	{
-				this.$http.delete('/task/'+index).success(function() {
-					this.$http.get('/task').then(function(res) {
-						this.tasks = res.data.items ? res.data.items : [];
+				this.$http.delete('/task/'+index).success(function(res) {
+					this.$http.get('/tasks').then(function(res) {
+						this.tasks = res.data.iterms ? res.data.iterms : [];
 					});
 				}).error(function(err) {
 					console.log(err)
@@ -56,7 +58,7 @@
 
 				this.$http.put('/task', task).success(function(res) {
 					this.$http.get('/tasks').then(function(res) {
-						this.tasks = res.data.items ? res.data.items : [];
+						this.tasks = res.data.iterms ? res.data.iterms : [];
 					});
 				}).error(function(err) {
 					console.log(err)
